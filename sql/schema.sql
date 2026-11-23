@@ -3,12 +3,11 @@ CREATE DATABASE IF NOT EXISTS box CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_
 
 USE box;
 
-CREATE table info
-(
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    title varchar(100) not null,
-    description varchar not null,
-    pseudo varchar(50) not null,
-    createDate NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    nbVote int default 0
+CREATE TABLE IF NOT EXISTS info (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  description TEXT NOT NULL,
+  pseudo VARCHAR(50) NOT NULL,
+  createDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  nbVote INT NOT NULL DEFAULT 0
 ) ENGINE = InnoDB;
