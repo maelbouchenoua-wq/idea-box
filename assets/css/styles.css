@@ -1,0 +1,8 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+}
+body .container_idées {
+
+}
