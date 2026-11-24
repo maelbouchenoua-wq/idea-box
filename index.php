@@ -35,12 +35,12 @@ $cards = get_card($tri);
             </button>
         </form>
     </div>
-    <form method="post">
-        <button class="ajout" type="submit" name="tri" value="vote">
+    <form method="post" class="btntrie-form">
+        <button class="btntrie" type="submit" name="tri" value="vote">
             LES PLUS VOTÉES
         </button>
 
-        <button class="ajout" type="submit" name="tri" value="recent">
+        <button class="btntrie" type="submit" name="tri" value="recent">
             LES PLUS RÉCENTES
         </button>
     </form>
