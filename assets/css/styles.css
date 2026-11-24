@@ -1,8 +1,22 @@
 body {
     display: flex;
     flex-direction: column;
-    background-color: red;
+    background-color: white;
 }
-body .container_idées {
+body .formulaire {
+    background-color: orange;
+    justify-content: space-between;
+    padding: 0px 500px 0px 500px;
+
+
+}
+
+body .formulaire .container_formulaire {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+body .formulaire .container_formulaire .description {
 
 }
