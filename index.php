@@ -1,5 +1,8 @@
 <?php
 session_start();
+require_once __DIR__ . '/card.php';
+$cards = get_card();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -9,6 +12,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IdeaBox</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+
     <link rel="stylesheet" href="assets/css/cartes.css">
 
 </head>
@@ -38,25 +42,29 @@ session_start();
         </button>
     </form>
 </header>
+
 <section class="container_idees">
     <div class="container_cartes">
         <div class="carte_idees">
-            <div class="carte">
-                <p class="carte-pseudo">Pseudo</p>
-                <p class="carte-titre">Titre</p>
-                <p class="carte-date">Date</p>
-                <p class="carte-description">Description</p>
-                <div class="carte-footer">
-                    <button class="btn-vote" type="button">
-                        <span class="btn-vote__icone">▲</span>
-                        <span class="btn-vote__nb">12</span>
-                    </button>
+            <?php foreach ($cards as $card): ?>
+                <div class="carte">
+                    <p class="carte-pseudo"><?= htmlspecialchars($card['pseudo']) ?></p>
+                    <p class="carte-titre"><?= htmlspecialchars($card['title']) ?></p>
+                    <p class="carte-date"><?= htmlspecialchars($card['date']) ?></p>
+                    <p class="carte-description"><?= htmlspecialchars($card['descri']) ?></p>
+                    <div class="carte-footer">
+                        <button class="btn-vote" type="button">
+                            <span class="btn-vote__icone">▲</span>
+                            <span class="btn-vote__nb"><?= (int) $card['vote'] ?></span>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
 
+>>>>>>> Stashed changes
 </body>
 
 
