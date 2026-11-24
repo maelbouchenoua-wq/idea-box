@@ -1,7 +1,9 @@
 <?php
 session_start();
 require_once __DIR__ . '/card.php';
-$cards = get_card();
+
+$tri = $_POST['tri'] ?? 'recent';
+$cards = get_card($tri);
 
 ?>
 <!DOCTYPE html>
@@ -13,7 +15,6 @@ $cards = get_card();
     <title>IdeaBox</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 
-    <link rel="stylesheet" href="assets/css/cartes.css">
 
 </head>
 
@@ -34,6 +35,15 @@ $cards = get_card();
             </button>
         </form>
     </div>
+    <form method="post">
+        <button class="ajout" type="submit" name="tri" value="vote">
+            LES PLUS VOTÉES
+        </button>
+
+        <button class="ajout" type="submit" name="tri" value="recent">
+            LES PLUS RÉCENTES
+        </button>
+    </form>
 </header>
 
 <div class="carte_idees">
