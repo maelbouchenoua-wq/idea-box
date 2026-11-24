@@ -65,6 +65,15 @@ unset($_SESSION['idee_enregistree']);
                 Ajouter
             </button>
         </form>
+        <form method="post" class="btntrie-form">
+            <button class="btntrie" type="submit" name="tri" value="vote">
+                LES PLUS VOTÉES
+            </button>
+
+            <button class="btntrie" type="submit" name="tri" value="recent">
+                LES PLUS RÉCENTES
+            </button>
+        </form>
     </div>
 </header>
 
