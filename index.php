@@ -12,9 +12,6 @@ $cards = get_card();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IdeaBox</title>
     <link rel="stylesheet" href="assets/css/styles.css">
-
-    <link rel="stylesheet" href="assets/css/cartes.css">
-
 </head>
 
 <body>
@@ -37,6 +34,7 @@ $cards = get_card();
 </header>
 
 <div class="carte_idees">
+
     <?php if (empty($cards)): ?>
         <p class="aucune-idee">Aucune idée pour l'instant</p>
     <?php else: ?>
