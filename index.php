@@ -18,29 +18,22 @@ $cards = get_card();
 </head>
 
 <body>
-<header class="formulaire">
-    <form class="container_formulaire">
+<header>
+    <div class="formulaire">
+        <form class="container_formulaire">
 
-        <input class="rentrer le pseudo">
-        Pseudo
-        </input>
+            <input type="text" placeholder="Pseudo" class="rentrer le pseudo">
 
+            <input type="text" placeholder="Titre" class="title">
 
-        <input class="title">
-        Titre
-        </input>
+            <input type="text" placeholder="Date" class="date">
 
-        <input class="date">
-        Date
-        </input>
-
-        <input class="description">
-        Description
-        </input>
-        <button class="ajout">
-            Ajouter
-        </button>
-    </form>
+            <input type="text" placeholder="Description" class="description">
+            <button class="ajout">
+                Ajouter
+            </button>
+        </form>
+    </div>
 </header>
 
 <div class="carte_idees">
