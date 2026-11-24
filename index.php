@@ -36,26 +36,26 @@ $cards = get_card();
     </div>
 </header>
 
-<section class="container_idees">
-    <div class="container_cartes">
-        <div class="carte_idees">
-            <?php foreach ($cards as $card): ?>
-                <div class="carte">
-                    <p class="carte-pseudo"><?= htmlspecialchars($card['pseudo']) ?></p>
-                    <p class="carte-titre"><?= htmlspecialchars($card['title']) ?></p>
-                    <p class="carte-date"><?= htmlspecialchars($card['date']) ?></p>
-                    <p class="carte-description"><?= htmlspecialchars($card['descri']) ?></p>
-                    <div class="carte-footer">
-                        <button class="btn-vote" type="button">
-                            <span class="btn-vote__icone">▲</span>
-                            <span class="btn-vote__nb"><?= (int) $card['vote'] ?></span>
-                        </button>
-                    </div>
+<div class="carte_idees">
+    <?php if (empty($cards)): ?>
+        <p class="aucune-idee">Aucune idée pour l'instant</p>
+    <?php else: ?>
+        <?php foreach ($cards as $card): ?>
+            <div class="carte">
+                <p class="carte-pseudo"><?= htmlspecialchars($card['pseudo']) ?></p>
+                <p class="carte-titre"><?= htmlspecialchars($card['title']) ?></p>
+                <p class="carte-date"><?= htmlspecialchars($card['date']) ?></p>
+                <p class="carte-description"><?= htmlspecialchars($card['descri']) ?></p>
+                <div class="carte-footer">
+                    <button class="btn-vote" type="button">
+                        <span class="btn-vote__icone">▲</span>
+                        <span class="btn-vote__nb"><?= (int) $card['vote'] ?></span>
+                    </button>
                 </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
 
 </body>
 
