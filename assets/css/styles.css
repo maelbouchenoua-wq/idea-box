@@ -1,22 +1,50 @@
-body {
+
+
+/********* FAIT PAR IA **********/
+.container_idees {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.container_cartes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.carte {
     display: flex;
     flex-direction: column;
-    background-color: white;
-}
-body .formulaire {
-    background-color: orange;
-    justify-content: space-between;
-    padding: 0px 500px 0px 500px;
-
-
+    height: 100%;
+    padding: 1.25rem;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-body .formulaire .container_formulaire {
+.carte-pseudo { font-size: 0.85rem; color: #777; }
+.carte-titre { font-size: 1.2rem; font-weight: bold; margin: 0.5rem 0; }
+.carte-date { font-size: 0.8rem; color: #999; }
+.carte-description { flex-grow: 1; margin: 0.75rem 0; }
+
+.carte-footer { display: flex; justify-content: flex-end; }
+
+.btn-vote {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    background: #f7f7f7;
+    cursor: pointer;
 }
 
-body .formulaire .container_formulaire .description {
+.btn-vote:hover { background: #eee; }
 
+/* Responsive (optionnel) */
+@media (max-width: 800px) {
+    .container_cartes { grid-template-columns: 1fr; }
 }
