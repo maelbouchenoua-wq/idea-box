@@ -8,10 +8,11 @@ require_once __DIR__ . '/includes/validation-idee.php';
 // Dans les champs, htmlspecialchars() affiche les guillemets et les chevrons comme du texte.
 $erreurs ??= [];
 $saisie ??= [];
+$tri = $_POST['tri'] ?? 'recent';
 if (!$erreurs) {
     require_once __DIR__ . '/card.php';
     try {
-        $cards = get_card();
+        $cards = get_card($tri);
     } catch (Throwable) {
         error_log('IdeaBox : lecture des idées indisponible.');
         http_response_code(503);
@@ -67,6 +68,15 @@ unset($_SESSION['idee_enregistree']);
             </div>
             <button class="ajout">
                 Ajouter
+            </button>
+        </form>
+        <form method="post" class="btntrie-form">
+            <button class="btntrie" type="submit" name="tri" value="vote">
+                LES PLUS VOTÉES
+            </button>
+
+            <button class="btntrie" type="submit" name="tri" value="recent">
+                LES PLUS RÉCENTES
             </button>
         </form>
     </div>
