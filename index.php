@@ -9,10 +9,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IdeaBox</title>
     <link rel="stylesheet" href="assets/css/styles.css">
-<<<<<<< Updated upstream
-=======
     <link rel="stylesheet" href="assets/css/cartes.css">
->>>>>>> Stashed changes
+
 </head>
 
 <body>
@@ -40,33 +38,6 @@ session_start();
         </button>
     </form>
 </header>
-<<<<<<< Updated upstream
-<section class="container_idées">
-    <div classe="container_cartes">
-        <div class="carte_idées">
-            <div class="carte">
-                <p>
-                    Pseudo
-                </p>
-                <p>
-                    titre
-                </p>
-                <p>
-                    Date
-                </p>
-                <p>
-                    description
-                </p>
-
-
-            </div>
-        </div>
-
-    </div>
-</section>
-
-
-=======
 <section class="container_idees">
     <div class="container_cartes">
         <div class="carte_idees">
@@ -86,7 +57,6 @@ session_start();
     </div>
 </section>
 
->>>>>>> Stashed changes
 </body>
 
 
