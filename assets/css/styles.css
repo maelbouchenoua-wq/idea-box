@@ -8,15 +8,16 @@
 }
 
 .container_cartes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* flex au lieu de grid*/
+    display: flex;
     gap: 1.5rem;
 }
 
 .carte {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    /* auto au lieu du 100% */
+    height: auto;
     padding: 1.25rem;
     background: #fff;
     border: 1px solid #e2e2e2;
@@ -44,7 +45,8 @@
 
 .btn-vote:hover { background: #eee; }
 
-/* Responsive (optionnel) */
+/* Responsive (optionnel)
 @media (max-width: 800px) {
     .container_cartes { grid-template-columns: 1fr; }
 }
+*/

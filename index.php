@@ -57,7 +57,6 @@ $cards = get_card();
     </div>
 </section>
 
->>>>>>> Stashed changes
 </body>
 
 
