@@ -9,6 +9,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IdeaBox</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/cartes.css">
+
 </head>
 
 <body>
@@ -29,30 +31,24 @@ session_start();
         </form>
     </div>
 </header>
-<section class="container_idées">
-    <div classe="container_cartes">
-        <div class="carte_idées">
+<section class="container_idees">
+    <div class="container_cartes">
+        <div class="carte_idees">
             <div class="carte">
-                <p>
-                    Pseudo
-                </p>
-                <p>
-                    titre
-                </p>
-                <p>
-                    Date
-                </p>
-                <p>
-                    description
-                </p>
-
-
+                <p class="carte-pseudo">Pseudo</p>
+                <p class="carte-titre">Titre</p>
+                <p class="carte-date">Date</p>
+                <p class="carte-description">Description</p>
+                <div class="carte-footer">
+                    <button class="btn-vote" type="button">
+                        <span class="btn-vote__icone">▲</span>
+                        <span class="btn-vote__nb">12</span>
+                    </button>
+                </div>
             </div>
         </div>
-
     </div>
 </section>
-
 
 </body>
 
