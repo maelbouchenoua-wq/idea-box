@@ -1,23 +1,21 @@
 
 
 /********* FAIT PAR IA **********/
-.container_idees {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
-
 .container_cartes {
-    /* flex au lieu de grid*/
-    display: flex;
-    gap: 1.5rem;
+    column-count: 4;  /* largeur mini d'une colonne, le navigateur calcule le nombre */
+    column-gap: 1.5rem;
 }
+/* ca bloque pour les colonnes
+.containers_idées
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+}
+*/
 
 .carte {
+    /* retire "height: 100%" : les cartes ont maintenant leur hauteur naturelle */
     display: flex;
     flex-direction: column;
-    /* auto au lieu du 100% */
-    height: auto;
     padding: 1.25rem;
     background: #fff;
     border: 1px solid #e2e2e2;
@@ -45,7 +43,10 @@
 
 .btn-vote:hover { background: #eee; }
 
-/* Responsive (optionnel)
+/* sert a rien
+
+
+Responsive (optionnel)
 @media (max-width: 800px) {
     .container_cartes { grid-template-columns: 1fr; }
 }
