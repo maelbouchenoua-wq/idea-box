@@ -1,23 +1,18 @@
 
 
-/********* FAIT PAR IA **********/
-.container_idees {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
-
-.container_cartes {
-    /* flex au lieu de grid*/
-    display: flex;
-    gap: 1.5rem;
+.carte_idees {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .carte {
     display: flex;
     flex-direction: column;
-    /* auto au lieu du 100% */
-    height: auto;
+    height: 100%;               /* toutes les cartes d'une ligne ont la même hauteur */
     padding: 1.25rem;
     background: #fff;
     border: 1px solid #e2e2e2;

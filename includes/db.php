@@ -1,13 +1,19 @@
 <?php
-require_once 'config.php';
-
 if (!function_exists('getPDO')) {
 
     function getPDO(): PDO
     {
+        // Pendant la même requête, les appels suivants réutilisent la connexion déjà ouverte.
         static $pdo = null;
 
         if ($pdo === null) {
+            // Chaque membre de l’équipe garde ses propres codes de connexion dans ce fichier local.
+            $config = __DIR__ . '/config.php';
+            if (!is_file($config) || !is_readable($config)) {
+                throw new RuntimeException('Configuration MySQL indisponible.');
+            }
+            require_once $config;
+
             $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
 
             $options = [
@@ -16,12 +22,7 @@ if (!function_exists('getPDO')) {
                 PDO::ATTR_EMULATE_PREPARES => false
             ];
 
-            try {
-                $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
-            } catch (PDOException $e) {
-                error_log("PDO Error: " . $e->getMessage());
-                die("Erreur de connexion à la base de données.");
-            }
+            $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         }
 
         return $pdo;
