@@ -41,21 +41,26 @@ unset($_SESSION['idee_enregistree']);
             <div>
                 <label for="pseudo">Pseudo</label>
                 <input type="text" id="pseudo" class="rentrer le pseudo" name="pseudo" required
-                       maxlength="<?= LIMITES_IDEE['pseudo'] ?>" value="<?= htmlspecialchars($saisie['pseudo'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                       aria-invalid="<?= isset($erreurs['pseudo']) ? 'true' : 'false' ?>" aria-describedby="erreur-pseudo">
+                       maxlength="<?= LIMITES_IDEE['pseudo'] ?>"
+                       value="<?= htmlspecialchars($saisie['pseudo'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                       aria-invalid="<?= isset($erreurs['pseudo']) ? 'true' : 'false' ?>"
+                       aria-describedby="erreur-pseudo">
                 <span id="erreur-pseudo"><?= $erreurs['pseudo'] ?? '' ?></span>
             </div>
             <div>
                 <label for="titre">Titre</label>
                 <input type="text" id="titre" class="title" name="title" required
-                       maxlength="<?= LIMITES_IDEE['title'] ?>" value="<?= htmlspecialchars($saisie['title'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                       aria-invalid="<?= isset($erreurs['title']) ? 'true' : 'false' ?>" aria-describedby="erreur-title">
+                       maxlength="<?= LIMITES_IDEE['title'] ?>"
+                       value="<?= htmlspecialchars($saisie['title'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                       aria-invalid="<?= isset($erreurs['title']) ? 'true' : 'false' ?>"
+                       aria-describedby="erreur-title">
                 <span id="erreur-title"><?= $erreurs['title'] ?? '' ?></span>
             </div>
             <div>
                 <label for="description">Description</label>
                 <textarea id="description" class="description" name="description" required
-                          maxlength="<?= LIMITES_IDEE['description'] ?>" aria-invalid="<?= isset($erreurs['description']) ? 'true' : 'false' ?>"
+                          maxlength="<?= LIMITES_IDEE['description'] ?>"
+                          aria-invalid="<?= isset($erreurs['description']) ? 'true' : 'false' ?>"
                           aria-describedby="erreur-description">
 <?= htmlspecialchars($saisie['description'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></textarea>
                 <span id="erreur-description"><?= $erreurs['description'] ?? '' ?></span>
@@ -68,34 +73,34 @@ unset($_SESSION['idee_enregistree']);
 </header>
 
 <?php if (!$erreurs): ?>
-<section id="idees">
-<?php if ($ideeEnregistree): ?>
-    <p role="status">Ton idée a bien été enregistrée.</p>
-<?php endif; ?>
-<div class="carte_idees">
+    <section id="idees">
+        <?php if ($ideeEnregistree): ?>
+            <p role="status">Ton idée a bien été enregistrée.</p>
+        <?php endif; ?>
+        <div class="carte_idees">
 
-    <?php if ($cards === null): ?>
-        <p role="alert">La liste des idées est momentanément indisponible.</p>
-    <?php elseif (empty($cards)): ?>
-        <p class="aucune-idee">Aucune idée pour l'instant</p>
-    <?php else: ?>
-        <?php foreach ($cards as $card): ?>
-            <div class="carte">
-                <p class="carte-pseudo"><?= htmlspecialchars($card['pseudo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
-                <p class="carte-titre"><?= htmlspecialchars($card['title'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
-                <p class="carte-date"><?= htmlspecialchars($card['date'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
-                <p class="carte-description"><?= htmlspecialchars($card['descri'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
-                <div class="carte-footer">
-                    <button class="btn-vote" type="button">
-                        <span class="btn-vote__icone">▲</span>
-                        <span class="btn-vote__nb"><?= (int) $card['vote'] ?></span>
-                    </button>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</div>
-</section>
+            <?php if ($cards === null): ?>
+                <p role="alert">La liste des idées est momentanément indisponible.</p>
+            <?php elseif (empty($cards)): ?>
+                <p class="aucune-idee">Aucune idée pour l'instant</p>
+            <?php else: ?>
+                <?php foreach ($cards as $card): ?>
+                    <div class="carte">
+                        <p class="carte-pseudo"><?= htmlspecialchars($card['pseudo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
+                        <p class="carte-titre"><?= htmlspecialchars($card['title'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
+                        <p class="carte-date"><?= htmlspecialchars($card['date'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
+                        <p class="carte-description"><?= htmlspecialchars($card['descri'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
+                        <div class="carte-footer">
+                            <button class="btn-vote" type="button">
+                                <span class="btn-vote__icone">▲</span>
+                                <span class="btn-vote__nb"><?= (int)$card['vote'] ?></span>
+                            </button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </section>
 <?php endif; ?>
 
 </body>
