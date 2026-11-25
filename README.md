@@ -25,7 +25,7 @@ je veux des accent, texte long, accent et des vote variés. il ne faut pas de vr
 
 
 
-##prompt us 14
+## prompt us 14
 
 Fais un audit de sécurité de mon application « boîte à idées » 
 Je t'envoie mon code, sans le fichier config.php 
@@ -36,6 +36,6 @@ Donne-moi un tableau : problème, fichier, gravité (élevée / moyenne / faible
 Sépare les vraies failles des simples améliorations, et explique en une phrase pourquoi chaque point est un risque.
 Ne réécris pas tout mon code.
 
-##prompt us 3 et 4
+## prompt us 3 et 4
 
 fais une relecture de l'us 4 ainsique que de l'us 3, fais moi un compte rendu detailler sur WORD, donne moi les axes d'ameliorations. dis moi si les fichiers comporte des risques faible/modéré/elevé le tout classé dans un tableau. ne modifi pas mon code
