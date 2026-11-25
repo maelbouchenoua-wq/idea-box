@@ -17,4 +17,5 @@ insert moi dans la table 20 valeur.
 je veux des accent, texte long, accent et des vote variés. il ne faut pas de vrai nom / email
 
 
-
+US 08 :
+rien a été supprimer tout est claire et simple pour le CSS carte_idees et .carte

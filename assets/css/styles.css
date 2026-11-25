@@ -10,7 +10,7 @@
 .carte {
     display: flex;
     flex-direction: column;
-    height: 100%;               /* toutes les cartes d'une ligne ont la même hauteur */
+    height: 100%;
     padding: 1.25rem;
     background: #fff;
     border: 1px solid #e2e2e2;
