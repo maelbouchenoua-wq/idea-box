@@ -3,7 +3,15 @@ session_start();
 require_once __DIR__ . '/card.php';
 $cards = get_card();
 
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -45,10 +53,17 @@ $cards = get_card();
                 <p class="carte-date"><?= htmlspecialchars($card['date']) ?></p>
                 <p class="carte-description"><?= htmlspecialchars($card['descri']) ?></p>
                 <div class="carte-footer">
-                    <button class="btn-vote" type="button">
-                        <span class="btn-vote__icone">▲</span>
-                        <span class="btn-vote__nb"><?= (int) $card['vote'] ?></span>
-                    </button>
+                    <button
+                    class="btn-vote"
+                    type="button"
+                    data-info-id="<?= (int) $info['id'] ?>"
+                >
+                    <span class="btn-vote__icone">▲</span>
+                    <span class="btn-vote__nb">
+                        <?= (int) $info['nbVote'] ?>
+                    </span>
+                    <span class="btn-vote__plus">+1</span>
+                </button>
                 </div>
             </div>
         <?php endforeach; ?>

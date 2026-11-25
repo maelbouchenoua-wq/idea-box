@@ -9,5 +9,13 @@ CREATE TABLE IF NOT EXISTS info (
   description TEXT NOT NULL,
   pseudo VARCHAR(50) NOT NULL,
   createDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  nbVote INT NOT NULL DEFAULT 0
-) ENGINE = InnoDB;
+
+UNIQUE KEY unique_vote (info_id, pseudo),
+
+    CONSTRAINT fk_votes_info
+        FOREIGN KEY (info_id)
+        REFERENCES info(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
