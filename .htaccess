@@ -1,0 +1,5 @@
+# US 14 : avec Apache (Laragon), on interdit l'accès web aux fichiers qui ne sont pas des pages.
+# Sans ça, /.git/ permet de télécharger tout l'historique du dépôt, et /sql/ la structure de la base.
+Options -Indexes
+RedirectMatch 404 (?i)/(\.git|\.idea|includes|sql)(/|$)
+RedirectMatch 404 (?i)/(README\.md|\.gitignore|\.htaccess|router\.php)$

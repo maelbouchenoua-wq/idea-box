@@ -7,7 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('Pour proposer une idée, utilise le formulaire.');
 }
 
+require_once __DIR__ . '/includes/securite.php';
 require_once __DIR__ . '/includes/validation-idee.php';
+
+// US 14 : un formulaire posté depuis un autre site n'a pas le jeton de notre session, il est refusé.
+if (!jetonCsrfValide($_POST['jeton_csrf'] ?? null)) {
+    header('Content-Type: text/plain; charset=UTF-8');
+    http_response_code(403);
+    exit('Formulaire expiré ou invalide. Recharge la page et réessaie.');
+}
 
 // On garde le texte d’origine pour le formulaire. On vérifie une copie sans les espaces du début et de la fin
 $saisie = [];
@@ -30,7 +38,6 @@ if ($erreurs) {
     exit;
 }
 
-session_start();
 header('Cache-Control: no-store');
 require_once __DIR__ . '/includes/db.php';
 
