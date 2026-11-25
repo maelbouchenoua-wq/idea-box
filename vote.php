@@ -1,133 +1,85 @@
 <?php
-session_start();
-
 header('Content-Type: application/json; charset=utf-8');
 
-// Vérifier que l'utilisateur est connecté
-if (empty($_SESSION['pseudo'])) {
-    http_response_code(401);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Connecte-toi pour voter.'
-    ]);
-    exit;
+function reponseVote(int $status, array $data): void
+{
+    http_response_code($status);
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
 }
 
-// Vérifier la méthode HTTP
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    exit;
-}
-
-// Vérifier le token CSRF
-if (
-    empty($_POST['csrf_token']) ||
-    empty($_SESSION['csrf_token']) ||
-    !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
-) {
-    http_response_code(403);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Requête invalide.'
-    ]);
-    exit;
-}
-
-// Connexion à la base de données
-require_once 'connexion.php';
-
-// Récupérer les informations
-$pseudo = $_SESSION['pseudo'];
-$infoId = filter_input(INPUT_POST, 'info_id', FILTER_VALIDATE_INT);
-
-if (!$infoId || $infoId <= 0) {
-    http_response_code(400);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Publication invalide.'
-    ]);
-    exit;
-}
-
+$pdo = null;
 try {
-
-    $pdo->beginTransaction();
-
-    // Vérifier que la publication existe
-    $check = $pdo->prepare(
-        "SELECT id FROM info WHERE id = ?"
-    );
-
-    $check->execute([$infoId]);
-
-    if (!$check->fetch()) {
-        $pdo->rollBack();
-
-        http_response_code(404);
-        echo json_encode([
-            'success' => false,
-            'message' => 'Publication introuvable.'
-        ]);
+    require_once __DIR__ . '/config.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Allow: POST');
+        reponseVote(405, ['success' => false, 'message' => 'Méthode non autorisée.']);
+        exit;
+    }
+    $userId = (int) ($_SESSION['user_id'] ?? 0);
+    if ($userId <= 0) {
+        reponseVote(401, ['success' => false, 'message' => 'Connecte-toi pour voter.']);
+        exit;
+    }
+    if (!csrfValide()) {
+        reponseVote(403, ['success' => false, 'message' => 'Requête invalide. Actualise la page.']);
+        exit;
+    }
+    $infoId = filter_input(INPUT_POST, 'info_id', FILTER_VALIDATE_INT);
+    if (!$infoId || $infoId <= 0) {
+        reponseVote(400, ['success' => false, 'message' => 'Publication invalide.']);
         exit;
     }
 
-    // Enregistrer le vote
-    // INSERT IGNORE évite les doublons grâce à UNIQUE
-    $stmt = $pdo->prepare("
-        INSERT IGNORE INTO votes (info_id, pseudo)
-        VALUES (?, ?)
-    ");
+    $pdo = getPDO();
+    $pdo->beginTransaction();
 
-    $stmt->execute([$infoId, $pseudo]);
+    // Verrouille cette idée pendant le vote : le compteur reste cohérent.
+    $check = $pdo->prepare('SELECT nbVote FROM info WHERE id = ? FOR UPDATE');
+    $check->execute([$infoId]);
+    $total = $check->fetchColumn();
+    if ($total === false) {
+        $pdo->rollBack();
+        reponseVote(404, ['success' => false, 'message' => 'Publication introuvable.']);
+        exit;
+    }
 
-    $nouveauVote = ($stmt->rowCount() === 1);
+    // UNIQUE (info_id, user_id) bloque les doublons même côté serveur.
+    $nouveauVote = true;
+    try {
+        $stmt = $pdo->prepare('INSERT INTO votes (info_id, user_id) VALUES (?, ?)');
+        $stmt->execute([$infoId, $userId]);
+    } catch (PDOException $e) {
+        if ((int) ($e->errorInfo[1] ?? 0) !== 1062) {
+            throw $e;
+        }
+        $nouveauVote = false;
+    }
 
     if ($nouveauVote) {
-
-        // Ajouter +1 au compteur
-        $update = $pdo->prepare("
-            UPDATE info
-            SET nbVote = nbVote + 1
-            WHERE id = ?
-        ");
-
+        $update = $pdo->prepare('UPDATE info SET nbVote = nbVote + 1 WHERE id = ?');
         $update->execute([$infoId]);
-
-        $message = 'Merci pour ton vote !';
-
-    } else {
-
-        $message = 'Tu as déjà voté pour cette publication.';
-
     }
 
-    // Récupérer le nombre actuel de votes
-    $count = $pdo->prepare("
-        SELECT nbVote FROM info WHERE id = ?
-    ");
-
+    $count = $pdo->prepare('SELECT nbVote FROM info WHERE id = ?');
     $count->execute([$infoId]);
-
     $total = (int) $count->fetchColumn();
-
     $pdo->commit();
 
-    echo json_encode([
+    reponseVote(200, [
         'success' => $nouveauVote,
-        'message' => $message,
-        'nbVote' => $total
+        'dejaVote' => true,
+        'message' => $nouveauVote ? 'Merci pour ton vote !' : 'Tu as déjà voté pour cette publication.',
+        'nbVote' => $total,
     ]);
-
-} catch (Exception $e) {
-
-    if ($pdo->inTransaction()) {
+} catch (Throwable $e) {
+    if ($pdo instanceof PDO && $pdo->inTransaction()) {
         $pdo->rollBack();
     }
-
-    http_response_code(500);
-
-    echo json_encode([
-        'success' => false,
-        'message' => 'Une erreur est survenue.'
-    ]);
+    if ($e instanceof PDOException) {
+        $message = erreurMySQL($e);
+    } else {
+        error_log($e->getMessage());
+        $message = 'Erreur du serveur. Consulte le journal PHP de MAMP.';
+    }
+    reponseVote(500, ['success' => false, 'message' => $message]);
 }
