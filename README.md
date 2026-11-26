@@ -38,4 +38,4 @@ Ne réécris pas tout mon code.
 
 ## prompt us 3 et 4
 
-fais une relecture de l'us 4 ainsique que de l'us 3, fais moi un compte rendu detailler sur WORD, donne moi les axes d'ameliorations. dis moi si les fichiers comporte des risques faible/modéré/elevé le tout classé dans un tableau. ne modifi pas mon code
+fais une relecture de l'us 4 ainsique que de l'us 3, fais moi un compte rendu detailler sur WORD, donne moi les axes d'ameliorations. dis moi si les fichiers comporte des risques faible/modéré/elevé le tout classé dans un tableau. ne modifi pas mon code comme tu l'as fais avant trouduc !!!
