@@ -23,7 +23,10 @@ insert moi dans la table 20 valeur.
 je veux des accent, texte long, accent et des vote variés. il ne faut pas de vrai nom / email
 
 
+US 08 : prompt : fais un CSS clair sans de détaille avec mon HTML
+rien a été supprimer tout est claire et simple pour le CSS carte_idees et .carte
 
+US 12 : J'ai rien compris...q
 
 ## prompt us 14
 
